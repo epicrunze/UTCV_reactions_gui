@@ -19,3 +19,9 @@ class RIReLU():
         X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
 
         return self.model.predict(X)
+    
+    def score(self, X, y):
+        stick = X * self.slopes + self.intercepts
+        X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
+
+        return self.model.score(X, y)
