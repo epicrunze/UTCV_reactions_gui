@@ -3,6 +3,7 @@ import sklearn
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
+from sklearn.metrics import r2_score
 
 class RIReLU():
     # model that does fun stuff
@@ -40,3 +41,8 @@ class polyfit():
 
     def predict(self, X):
         return self.pipe.predict(X.reshape(-1,1))
+    
+    def score(self, X, y):
+        y_true = y
+        y_pred = self.predict(X)
+        return r2_score(y_true, y_pred)
