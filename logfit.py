@@ -1,27 +1,29 @@
 import numpy as np
 import sklearn
-#lol Olevia's attempt to code - exponential regression - i essentially linearized stick
-from sklearn.linear_model import LinearRegression
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
 
-class RIReLU():
-    # model that does fun stuff
-    def __init__(self, units=1000):
-        self.model = LinearRegression()
-        self.slopes = np.random.uniform(low=0, high=100, size=(1, 1000))
-        self.intercepts = np.random.uniform(low=-10, high=10, size=(1, 1000))
+class Logfit(): #https://stackoverflow.com/questions/50706092/exponential-regression-function-python 
+    def __init__(self, a, b, c):
+        self.a = a 
+        self.b = b 
+        self.c = c 
 
-    def fit(self, X, y):#how do u get rid of the error underline thing?
-        stick = np.exp(X*self.slopes + np.log(self.intercepts))
-        X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
-        self.model.fit(X, y)
+    def func_exp(self, X):
+        #c = 0
+        return a * np.exp(b * X) + c
     
-    def predict(self, X):
-        stick = np.exp(X * self.slopes + np.log(self.intercepts))
-        X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
-        return self.model.predict(X)
-    
-    def score(self, X, y):
-        stick = np.exp(X* self.slopes + np.log(self.intercepts))
-        X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
+    def exponential_regression (X, y):
+        popt, pcov = curve_fit(func_exp, X, y, p0 = (-1, 0.01, 1))
+         print(popt)
+         puntos = plt.plot(X, y, 'x', color='xkcd:maroon', label = "data")
+         curve_regression = plt.plot(x, func_exp(X, *popt), color='xkcd:teal', label = "fit: {:.3f}, {:.3f}, {:.3f}".format(*popt))
+         plt.legend()
+         plt.show()
+         return func_exp(X, *popt)
 
+    def predict(self, X): #IGNORE HAVE NOT FINISHED
+        return self.predict(X.reshape(-1,1))
+   
+    def score(self, X, y): #IGNORE
         return self.model.score(X, y)
