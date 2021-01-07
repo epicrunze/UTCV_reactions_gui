@@ -9,8 +9,8 @@ class RIReLU():
     # model that does fun stuff
     def __init__(self, units=1000):
         self.model = LinearRegression()
-        self.slopes = np.random.uniform(low=0, high=100, size=(1, 1000))
-        self.intercepts = np.random.uniform(low=-10, high=10, size=(1, 1000))
+        self.slopes = np.random.uniform(low=0, high=100, size=(1, units))
+        self.intercepts = np.random.uniform(low=-10, high=10, size=(1, units))
 
     def fit(self, X, y):
         stick = X * self.slopes + self.intercepts
@@ -29,15 +29,16 @@ class RIReLU():
 
         return self.model.score(X, y)
 
-class polyfit():
+class Polyfit():
     # https://www.analyticsvidhya.com/blog/2020/03/polynomial-regression-python/
-    def __init__(self, degree = 2, units = 1000):
+    def __init__(self, degree = 2):
         self.poly = PolynomialFeatures(degree)
         self.linear = LinearRegression()
         self.pipe = Pipeline([('polynomial',self.poly),('modal',self.linear)])
     
     def fit(self, X, y):
-        self.pipe.fit(X.reshape(-1,1),y.reshape(-1,1))
+        # self.linear.fit(self.poly(X), y)
+        self.pipe.fit(X.reshape(-1,1),y)
 
     def predict(self, X):
         return self.pipe.predict(X.reshape(-1,1))

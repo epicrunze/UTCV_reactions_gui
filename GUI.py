@@ -13,7 +13,7 @@ import tkinter.filedialog
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from models import RIReLU
+from models import RIReLU, Polyfit
 
 ##############################
 # MAIN PROGRAM
@@ -84,7 +84,7 @@ class MainProgram(tk.Frame):
 
         self.create_linear_model = tk.Button(self)
         self.create_linear_model["text"] = "Create Fancy Model"
-        self.create_linear_model["command"] = self.create_model("RIReLU")
+        self.create_linear_model["command"] = self.create_model("Polyfit")
         self.create_linear_model.pack(side="left")
 
         self.get_pred_button = tk.Button(self)
@@ -143,6 +143,12 @@ class MainProgram(tk.Frame):
                 self.model = RIReLU()
                 self.fit_model()
                 self.plot_model(legend="fancy model")
+            
+            if modeltype == "Polyfit":
+                self.model = Polyfit()
+                self.fit_model()
+                self.plot_model(legend="polyfit")
+
         return temp_func
 
     def get_vars(self):
