@@ -22,7 +22,7 @@ class DataIntake(tk.Frame):
 
     @classmethod
     def read_csv(cls, datadist=None):
-        def tmp()
+        def tmp():
             # csv or similar file with DEPVAR column, and TIME column
             filename = tk.filedialog.askopenfilename()
             
