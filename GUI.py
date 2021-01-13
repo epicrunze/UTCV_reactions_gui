@@ -104,8 +104,8 @@ class MainProgram(tk.Frame):
     def create_plots(self):
         self.figure1 = plt.Figure(figsize=(6,5), dpi=100)
         self.ax = self.figure1.add_subplot(111)
-        self.plot_canvas = FigureCanvasTkAgg(self.figure1, root)
-        self.plot_canvas.get_tk_widget().pack(side=tk.TOP) 
+        self.plot_canvas = FigureCanvasTkAgg(self.figure1, self)
+        self.plot_canvas.get_tk_widget().pack(side=tk.BOTTOM) 
 
     def plot_csv(self):
         if not self.get_vars():
