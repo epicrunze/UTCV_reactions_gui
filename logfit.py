@@ -32,12 +32,12 @@ class Logfit(): #https://stackoverflow.com/questions/50706092/exponential-regres
         return self.func_exp(X, *self.popt) # not flattened here, so output will be like input in dimension
    
     def score(self, X, y): #IGNORE
-        #TODO Implement R2?, or if there's a better metric, implement that, but R2 is consistent with our other models
+        #TODO Implement R^2?, or if there's a better metric, implement that, but R^2 is consistent with our other models
         pass
     
 if __name__ == "__main__":
     logfunc = Logfit()
-    X = np.array([2, 3, 4, 4.5, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 14])
+    X = np.array([2, 3, 4, 4.5, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 14]).reshape(-1, 1)
     y = np.array([11.02, 16.19, 21.96, 19.5, 27.53, 32.75, 38.55, 42.94, 48.23, 54.38, 59.07, 63.11, 68.81, 80.81, 78.18, 75.27])
 
     logfunc.exponential_regression(X, y)
