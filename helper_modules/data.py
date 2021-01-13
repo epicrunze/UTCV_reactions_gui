@@ -1,3 +1,4 @@
+import numpy as np
 class DataDistributor():
     def __init__(self):
         # Data is a dictionary of lists, with column headers as keys

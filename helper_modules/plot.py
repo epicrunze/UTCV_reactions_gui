@@ -1,13 +1,13 @@
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 import tkinter as tk
+import numpy as np
 
 class Plotter(tk.Frame):
     def __init__(self, master=None, datadist=None):
         super().__init__(master)
         self.master = master
         self.datadist = datadist
-        self.pack()
 
         self.create_plots()
 
@@ -30,3 +30,27 @@ class Plotter(tk.Frame):
         datadist.ax.set_title('{} Vs. {}'.format(datadist.DEPVAR, datadist.INDEPVAR))
         
         datadist.plot_canvas.draw()
+
+    @classmethod
+    def plot_model(cls, datadist=None, legend="model"):
+        if not datadist.get_vars():
+            return
+        
+        lb = min(datadist.data[datadist.INDEPVAR])
+        ub = max(datadist.data[datadist.INDEPVAR]) + 2
+
+        datadist.ax.plot(np.linspace(lb, ub, num=100), datadist.model.predict(np.linspace(lb, ub, num=100).reshape(-1, 1)))
+
+        datadist.ax.legend([legend]) 
+        datadist.ax.set_xlabel(datadist.INDEPVAR)
+        datadist.ax.set_title('{} Vs. {}'.format(datadist.DEPVAR, datadist.INDEPVAR))
+        
+        datadist.plot_canvas.draw()
+    
+    @classmethod
+    def clear_axis(cls, datadist=None):
+        def tmp():
+            if datadist.ax:
+                datadist.ax.cla()
+                datadist.plot_canvas.draw()
+        return tmp

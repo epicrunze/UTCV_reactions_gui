@@ -8,9 +8,9 @@ class DataIntake(tk.Frame):
         super().__init__(master)
         self.master = master
         self.datadist = datadist
-        self.pack()
 
         self.create_buttons()
+        print("xd")
 
         # parameters governing csv intake
 
@@ -18,7 +18,7 @@ class DataIntake(tk.Frame):
         self.load_csv = tk.Button(self)
         self.load_csv["text"] = "Select csv to Load"
         self.load_csv["command"] = self.read_csv(datadist=self.datadist)
-        self.load_csv.pack(side="left")
+        self.load_csv.pack()
 
     @classmethod
     def read_csv(cls, datadist=None):
