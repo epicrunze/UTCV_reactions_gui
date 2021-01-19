@@ -3,7 +3,7 @@ import sklearn
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
-class Logfit(): #https://stackoverflow.com/questions/50706092/exponential-regression-function-python 
+class Expofit(): #https://stackoverflow.com/questions/50706092/exponential-regression-function-python 
     def __init__(self):
         self.popt = None # variable for holding the parameters we find (a, b, c)
         # i declare it here for transparency, so it's easier to find which variables we juggle around internally
@@ -32,8 +32,9 @@ class Logfit(): #https://stackoverflow.com/questions/50706092/exponential-regres
         return self.func_exp(X, *self.popt) # not flattened here, so output will be like input in dimension
    
     def score(self, X, y): #IGNORE
-        #TODO Implement R^2?, or if there's a better metric, implement that, but R^2 is consistent with our other models
-        pass
+        y_true = y
+        y_pred = self.predict(X)
+        return r2_score(y_true, y_pred)
     
 if __name__ == "__main__":
     logfunc = Logfit()

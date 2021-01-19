@@ -5,6 +5,9 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import r2_score
 
+from scipy.optimize import curve_fit
+import matplotlib.pyplot as plt
+
 class RIReLU():
     # model that does fun stuff
     def __init__(self, units=1000):
@@ -47,3 +50,38 @@ class Polyfit():
         y_true = y
         y_pred = self.predict(X)
         return r2_score(y_true, y_pred)
+
+class Expofit(): #https://stackoverflow.com/questions/50706092/exponential-regression-function-python  
+    def __init__(self):
+        self.popt = None # variable for holding the parameters we find (a, b, c)
+        # i declare it here for transparency, so it's easier to find which variables we juggle around internally
+
+    def func_exp(self, X, a, b ,c):
+        #c = 0
+        # this code below harnesses numpy broadcasting, which I will explain once I compile a workshop notebook
+        return a * np.exp(b * X) + c
+    
+    def exponential_regression(self, X, y): # should rename to fit
+        X = np.array(X).flatten() # flattens input array if not already flattened, since curve fit requires 1D arrays
+        y = np.array(y).flatten() # same as above
+        popt, pcov = curve_fit(self.func_exp, X, y, p0 = (-1, 0.01, 1), maxfev=5000) # set number of guesses higher maxfev=5000
+        print("Found parameters! [a, b, c]: {}".format(str(popt)))
+        print(type(popt)) # useful function for seeing what type a variable is, (in this case, numpy array)
+        self.popt = popt # saving found parameters
+
+        #plotting code, to be removed
+        puntos = plt.plot(X, y, 'x', color='xkcd:maroon', label = "data") 
+        curve_regression = plt.plot(X, self.func_exp(X, *popt), color='xkcd:teal', label = "fit: {:.3f}, {:.3f}, {:.3f}".format(*popt))
+        plt.legend()
+        plt.show()
+        return self.func_exp(X, *popt)
+
+    def predict(self, X): # Same call pattern as in the plot above, notice the *, which unpacks our popt variable
+        return self.func_exp(X, *self.popt) # not flattened here, so output will be like input in dimension
+   
+    def score(self, X, y): #IGNORE
+        y_true = y
+        y_pred = self.predict(X)
+        
+        return r2_score(y_true, y_pred)
+    
