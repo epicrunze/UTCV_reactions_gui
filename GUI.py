@@ -13,7 +13,7 @@ import tkinter.filedialog
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
-from models import RIReLU, Polyfit
+from helper_modules.models import RIReLU, Polyfit
 
 ##############################
 # MAIN PROGRAM
