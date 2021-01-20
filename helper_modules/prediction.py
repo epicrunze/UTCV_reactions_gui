@@ -1,5 +1,6 @@
 import tkinter as tk
 import numpy as np
+
 class PredPanel(tk.Frame):
     def __init__(self, master=None, datadist=None):
         super().__init__(master)
@@ -17,7 +18,7 @@ class PredPanel(tk.Frame):
         self.get_pred_button = tk.Button(self)
         self.get_pred_button["text"] = "Predict"
         self.get_pred_button["command"] = self.get_prediction
-        self.get_pred_button.pack(side="left")
+        self.get_pred_button.pack(side="bottom")
 
     def create_entries(self):
 

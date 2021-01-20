@@ -21,7 +21,7 @@ class IntPanel(tk.Frame):
         self.create_linear_model.pack(side="left")
 
         self.create_fancy_model = tk.Button(self)
-        self.create_fancy_model["text"] = "Create Fancy Model"
+        self.create_fancy_model["text"] = "Create Polyfit (degree 2) Model"
         self.create_fancy_model["command"] = self.create_model("Polyfit")
         self.create_fancy_model.pack(side="left")
 
