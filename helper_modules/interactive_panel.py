@@ -16,20 +16,24 @@ class IntPanel(tk.Frame):
         self.create_buttons()
 
     def create_buttons(self):
+        OptionList = [
+        "linear",
+        "RIReLU",
+        "Polyfit",
+        "Expofit"
+        ] 
+
+        variable = StringVar(self)
         
-        clicked = tk.StringVar()
-        clicked.set("Pick a model")
-        model = clicked.get()
-        self.drop = OptionMenu(self, clicked, "linear", "RIReLU", "Polyfit", "Expofit")
+        self.drop = tk.OptionMenu(self, variable, *OptionList)
         self.drop.pack(side="left")
-        
         self.enters_model = tk.Button(self)
         self.enters_model["text"] = "Create Model"
-        self.enters_model["command"] = self.create_model(model)
+        self.enters_model["command"] = self.create_model(variable.get())
         self.enters_model.pack(side="left")
-        
-
+        variable.set(OptionList[0])
        
+
         #self.create_linear_model = tk.Button(self)
         #self.create_linear_model["text"] = "Create Linear Model"
         #self.create_linear_model["command"] = self.create_model("linear")
