@@ -3,7 +3,8 @@ import numpy as np
 import sklearn
 from sklearn.linear_model import LinearRegression
 from . import datain, plot, models
-from .models import RIReLU, Polyfit
+from .models import RIReLU, Polyfit, Expofit
+from tkinter import *
 
 class IntPanel(tk.Frame):
     def __init__(self, master=None, datadist=None):
@@ -15,15 +16,34 @@ class IntPanel(tk.Frame):
         self.create_buttons()
 
     def create_buttons(self):
-        self.create_linear_model = tk.Button(self)
-        self.create_linear_model["text"] = "Create Linear Model"
-        self.create_linear_model["command"] = self.create_model("linear")
-        self.create_linear_model.pack(side="left")
+        
+        clicked = tk.StringVar()
+        clicked.set("Pick a model")
+        model = clicked.get()
+        self.drop = OptionMenu(self, clicked, "linear", "RIReLU", "Polyfit", "Expofit")
+        self.drop.pack(side="left")
+        
+        self.enters_model = tk.Button(self)
+        self.enters_model["text"] = "Create Model"
+        self.enters_model["command"] = self.create_model(model)
+        self.enters_model.pack(side="left")
+        
 
-        self.create_fancy_model = tk.Button(self)
-        self.create_fancy_model["text"] = "Create Polyfit (degree 2) Model"
-        self.create_fancy_model["command"] = self.create_model("Polyfit")
-        self.create_fancy_model.pack(side="left")
+       
+        #self.create_linear_model = tk.Button(self)
+        #self.create_linear_model["text"] = "Create Linear Model"
+        #self.create_linear_model["command"] = self.create_model("linear")
+        #self.create_linear_model.pack(side="left")
+
+        #self.create_fancy_model = tk.Button(self)
+        #self.create_fancy_model["text"] = "Create Polyfit (degree 2) Model"
+        #self.create_fancy_model["command"] = self.create_model("Polyfit")
+        #self.create_fancy_model.pack(side="left")
+
+        #self.create_fancier_model = tk.Button(self)
+        #self.create_fancier_model["text"] = "Create Expofit Model"
+        #self.create_fancier_model["command"] = self.create_model("Expofit")
+        #self.create_fancier_model.pack(side="left")
 
         self.get_pred_button = tk.Button(self)
         self.get_pred_button["text"] = "Clear"
@@ -54,7 +74,12 @@ class IntPanel(tk.Frame):
                 self.datadist.model = Polyfit()
                 self.fit_model()
                 plot.Plotter.plot_model(legend="polyfit", datadist=self.datadist)
-
+           
+            if modeltype == "Expofit":
+                self.datadist.model = Expofit()
+                self.fit_model()
+                plot.Plotter.plot_model(legend="expofit", datadist=self.datadist)
+    
         return temp_func
 
     def fit_model(self):

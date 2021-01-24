@@ -69,17 +69,10 @@ class Expofit(): #https://stackoverflow.com/questions/50706092/exponential-regre
         print(type(popt)) # useful function for seeing what type a variable is, (in this case, numpy array)
         self.popt = popt # saving found parameters
 
-        #plotting code, to be removed
-        puntos = plt.plot(X, y, 'x', color='xkcd:maroon', label = "data") 
-        curve_regression = plt.plot(X, self.func_exp(X, *popt), color='xkcd:teal', label = "fit: {:.3f}, {:.3f}, {:.3f}".format(*popt))
-        plt.legend()
-        plt.show()
-        return self.func_exp(X, *popt)
-
     def predict(self, X): # Same call pattern as in the plot above, notice the *, which unpacks our popt variable
         return self.func_exp(X, *self.popt) # not flattened here, so output will be like input in dimension
    
-    def score(self, X, y): #IGNORE
+    def score(self, X, y): 
         y_true = y
         y_pred = self.predict(X)
         
