@@ -29,7 +29,7 @@ class IntPanel(tk.Frame):
         self.drop.pack(side="left")
         self.enters_model = tk.Button(self)
         self.enters_model["text"] = "Create Model"
-        self.enters_model["command"] = self.create_model(variable.get())
+        self.enters_model["command"] = self.create_model(variable)
         self.enters_model.pack(side="left")
         variable.set(OptionList[0])
        
@@ -64,22 +64,22 @@ class IntPanel(tk.Frame):
                 print("no data Sadge")
                 return
 
-            if modeltype == "linear":
+            if modeltype.get() == "linear":
                 self.datadist.model = LinearRegression()
                 self.fit_model()
                 plot.Plotter.plot_model(legend="{:.3f}x + {:.3f}   R^2 = {:.3f}".format(self.datadist.model.coef_[0], self.datadist.model.intercept_, self.datadist.model_score), datadist=self.datadist)
             
-            if modeltype == "RIReLU":
+            if modeltype.get() == "RIReLU":
                 self.datadist.model = RIReLU()
                 self.fit_model()
                 plot.Plotter.plot_model(legend="fancy model", datadist=self.datadist)
             
-            if modeltype == "Polyfit":
+            if modeltype.get() == "Polyfit":
                 self.datadist.model = Polyfit()
                 self.fit_model()
                 plot.Plotter.plot_model(legend="polyfit", datadist=self.datadist)
            
-            if modeltype == "Expofit":
+            if modeltype.get() == "Expofit":
                 self.datadist.model = Expofit()
                 self.fit_model()
                 plot.Plotter.plot_model(legend="expofit", datadist=self.datadist)
