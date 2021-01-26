@@ -11,6 +11,8 @@ class Stopwatch(tk.Frame):
         self._running = 0
         self.timestr = StringVar()               
         self.makeWidgets()
+        self.pack()
+        self.create_buttons()
     
     def create_buttons(self):
         self.start_button = tk.Button(self)
@@ -19,7 +21,7 @@ class Stopwatch(tk.Frame):
         self.start_button.pack()
 
         self.stop_button = tk.Button(self)
-        self.stop_button["text"] = "Start"
+        self.stop_button["text"] = "Stop"
         self.stop_button["command"] = self.Stop
         self.stop_button.pack()
 
@@ -67,3 +69,8 @@ class Stopwatch(tk.Frame):
         self._start = time.time()         
         self._elapsedtime = 0.0    
         self._setTime(self._elapsedtime)
+    
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = Stopwatch(master=root)
+    app.mainloop()

@@ -1,5 +1,6 @@
 import tkinter as tk
 import numpy as np
+from .stopwatch import Stopwatch
 
 class PredPanel(tk.Frame):
     def __init__(self, master=None, datadist=None):
@@ -11,6 +12,7 @@ class PredPanel(tk.Frame):
         self.vel_contents = None
 
         self.create_buttons()
+        self.create_stopwatch()
         self.create_entries()
         self.create_outputs()
     
@@ -48,6 +50,9 @@ class PredPanel(tk.Frame):
 
         self.prediction = tk.Label(self.prediction_frame)
         self.prediction.pack(side=tk.BOTTOM)
+
+    def create_stopwatch(self):
+        _ = Stopwatch(master=self)
 
     def predict_model(self, X):
 
