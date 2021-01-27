@@ -8,19 +8,39 @@ from sklearn.metrics import r2_score
 from scipy.optimize import curve_fit
 import matplotlib.pyplot as plt
 
+
 class RIReLU():
-    # model that does fun stuff
+    
     def __init__(self, units=1000):
+        '''
+        A linear regressor that generates random ReLU features
+        for every input dimension.
+
+
+        Keyword arguments:
+        
+        units -- Integer that determines how many ReLU features are
+                generated for each input feature (default 1000)
+        '''
         self.model = LinearRegression()
         self.slopes = np.random.uniform(low=0, high=100, size=(1, units))
         self.intercepts = np.random.uniform(low=-10, high=10, size=(1, units))
 
     def fit(self, X, y):
+        '''
+        A function that fits the model
+        
+
+        Keyword arguments:
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        y -- 1D array of shape (M,), where M is the number of data points
+        '''
         stick = X * self.slopes + self.intercepts
         X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
         self.model.fit(X, y)
     
     def predict(self, X):
+
         stick = X * self.slopes + self.intercepts
         X = np.max(np.stack((stick, np.zeros_like(stick))), axis=0)
 
