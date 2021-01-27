@@ -10,7 +10,6 @@ class DataIntake(tk.Frame):
         self.datadist = datadist
 
         self.create_buttons()
-        print("xd")
 
         # parameters governing csv intake
 

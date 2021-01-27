@@ -10,12 +10,13 @@ class DataDistributor():
 
         # csv PARAMETERS
         self.DEPVAR_indicator = "DEPVAR"
-        self.INDEPVAR_indicator = "TIME"
+        self.INDEPVAR_indicator = "INDEP"
 
         self.DEPVAR = None
         self.INDEPVAR = None
 
     def get_vars(self):
+        # function to get column headers that correspond to dependant and independant variables
         if not self.data:
             print("no data Sadge")
             return None
