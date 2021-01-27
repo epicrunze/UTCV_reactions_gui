@@ -55,18 +55,45 @@ class RIReLU():
 class Polyfit():
     # https://www.analyticsvidhya.com/blog/2020/03/polynomial-regression-python/
     def __init__(self, degree = 2):
+        '''
+        A class that generates a polynomial model to describe the relation between
+        a dependent and independent variable.
+
+        Keyword arguments:
+        degree -- integer that determines the degree of the polynomial model (default 2)
+        '''
         self.poly = PolynomialFeatures(degree)
         self.linear = LinearRegression()
         self.pipe = Pipeline([('polynomial',self.poly),('modal',self.linear)])
     
     def fit(self, X, y):
         # self.linear.fit(self.poly(X), y)
+        '''
+        A function that fits the model.
+
+        Keyword arguments:
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        y -- 1D array of shape (M,), where M is the number of data points
+        '''
         self.pipe.fit(X.reshape(-1,1),y)
 
     def predict(self, X):
+        '''
+        A function that predicts the model.
+
+        Keyword arguments:
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        '''
         return self.pipe.predict(X.reshape(-1,1))
     
     def score(self, X, y):
+        '''
+        A function that calculates the score (R^2 )of the model.
+
+        Keyword arguments:
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        y -- 1D array of shape (M,), where M is the number of data points
+        '''
         y_true = y
         y_pred = self.predict(X)
         return r2_score(y_true, y_pred)

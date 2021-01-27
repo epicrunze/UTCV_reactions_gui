@@ -5,6 +5,9 @@ from tkinter import *
 
 class Stopwatch(tk.Frame):
     def __init__(self, master=None, **kw):
+        '''
+        A class that packs a stopwatch into the GUI with a start, stop, and reset button.
+        '''
         super().__init__(master)
         self._start = 0.0        
         self._elapsedtime = 0.0
@@ -15,6 +18,9 @@ class Stopwatch(tk.Frame):
         self.create_buttons()
     
     def create_buttons(self):
+        '''
+        A function that packs the start, stop, and reset button into the GUI.
+        '''
         self.start_button = tk.Button(self)
         self.start_button["text"] = "Start"
         self.start_button["command"] = self.Start
@@ -31,33 +37,45 @@ class Stopwatch(tk.Frame):
         self.reset_button.pack()
 
     def makeWidgets(self):                         
-        """ Make the time label. """
+        """ 
+        A function that makes the time label. 
+        """
         l = Label(self, textvariable=self.timestr)
         self._setTime(self._elapsedtime)
         l.pack(fill=X, expand=NO, pady=2, padx=2)
 
     def _update(self): 
-        """ Update the label with elapsed time. """
+        """ 
+        A function that updates the label with elapsed time. 
+        """
         self._elapsedtime = time.time() - self._start
         self._setTime(self._elapsedtime)
         self._timer = self.after(50, self._update)
     
     def _setTime(self, elap):
-        """ Set the time string to Minutes:Seconds:Hundreths """
+        """
+        A function that sets the time string to Minutes:Seconds:Hundreths 
+        Keyword arguments:
+        elap -- a floating-point number of the seconds elapsed since Start has been called.
+        """
         minutes = int(elap/60)
         seconds = int(elap - minutes*60.0)
         hseconds = int((elap - minutes*60.0 - seconds)*100)                
         self.timestr.set('%02d:%02d:%02d' % (minutes, seconds, hseconds))
         
     def Start(self):                                                     
-        """ Start the stopwatch, ignore if running. """
+        """ 
+        A function that starts the stopwatch and ignores if already running. 
+        """
         if not self._running:            
             self._start = time.time() - self._elapsedtime
             self._update()
             self._running = 1        
     
     def Stop(self):                                    
-        """ Stop the stopwatch, ignore if stopped. """
+        """
+        A function that stops the stopwatch and ignores if already stopped.
+        """
         if self._running:
             self.after_cancel(self._timer)            
             self._elapsedtime = time.time() - self._start    
@@ -65,7 +83,9 @@ class Stopwatch(tk.Frame):
             self._running = 0
     
     def Reset(self):                                  
-        """ Reset the stopwatch. """
+        """ 
+        A function that resets the stopwatch to 00:00:00
+        """
         self._start = time.time()         
         self._elapsedtime = 0.0    
         self._setTime(self._elapsedtime)
