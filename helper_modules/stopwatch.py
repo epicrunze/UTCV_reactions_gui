@@ -69,7 +69,8 @@ class Stopwatch(tk.Frame):
         self._start = time.time()         
         self._elapsedtime = 0.0    
         self._setTime(self._elapsedtime)
-    
+
+
 if __name__ == "__main__":
     root = tk.Tk()
     app = Stopwatch(master=root)
