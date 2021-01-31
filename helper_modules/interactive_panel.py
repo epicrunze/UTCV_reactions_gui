@@ -8,6 +8,7 @@ from tkinter import *
 
 
 class IntPanel(tk.Frame):
+
     def __init__(self, master=None, datadist=None):
         '''
         Function to create the interactive panel
