@@ -6,8 +6,17 @@ from . import datain, plot, models
 from .models import RIReLU, Polyfit, Expofit
 from tkinter import *
 
+
 class IntPanel(tk.Frame):
     def __init__(self, master=None, datadist=None):
+        '''
+        Function to create the interactive panel
+
+        Inputs:
+            master: instance of tkinter frame
+            datadist: instance of datadistribution object
+        
+        '''
         super().__init__(master)
         self.master = master
         self.datadist = datadist
