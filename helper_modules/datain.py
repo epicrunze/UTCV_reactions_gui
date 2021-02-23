@@ -20,8 +20,6 @@ class DataIntake(tk.Frame):
 
         self.create_buttons()
 
-        # parameters governing csv intake
-
     def create_buttons(self):
         '''creates the button for loading csv'''
         self.load_csv = tk.Button(self)
