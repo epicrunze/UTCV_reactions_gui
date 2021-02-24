@@ -3,7 +3,7 @@ A GUI for UTCV Reactions to lessen the time taken at competition.
 
 Written by: Ryan Zhang, Mackenzie Gole, Olevia Pal
 
-## How do?
+## Running the GUI
 
 
 
@@ -18,7 +18,14 @@ run
 
     pip install -r requirements.txt
 
-## Description of things it can do
+## Description of each button
 
-blah blah blah
+
+### Select csv to load
+
+
+- Opens up a file dialog in your operating system
+- User selects a csv file that they would like to use as data
+- Loads the data into the GUI, and graphs it
+
 
