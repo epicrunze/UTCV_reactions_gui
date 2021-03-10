@@ -98,33 +98,60 @@ class Polyfit():
         y_pred = self.predict(X)
         return r2_score(y_true, y_pred)
 
-class Expofit(): #https://stackoverflow.com/questions/50706092/exponential-regression-function-python 
+class Expofit(): 
+    
     def __init__(self):
+        '''
+         A class that uses an exponential model to fit a given set of data. 
+         '''
+       
         self.curve_fit = None # variable for holding the parameters we find (a, b, c)
         # i declare it here for transparency, so it's easier to find which variables we juggle around internally
 
     def func_exp(self, X):
-        #c = 0
+        '''
+        A function that returns the exponential form of the linearized model after using polyfit to
+        find paramaters a and b. 
+
+        Keyword arguments: 
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        '''
         return np.exp(self.curve_fit[0]) * np.exp(self.curve_fit[1]*X)
     
-    def fit(self, X, y): # should rename to fit
+    def fit(self, X, y):
+         '''
+        A function that takes the independent and dependent variables of the data, logs the values and uses numpy 
+        polyfit to find paramaters for the linearized graph. These parameters are displayed, as well as saved for further use.
+
+        Keyword arguments:
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        y -- 1D array of shape (M,), where M is the number of data points
+        '''
         X = np.array(X).flatten() # flattens input array if not already flattened, since curve fit requires 1D arrays
         y = np.array(y).flatten() # same as above
         log_x_data = np.log(X)
         log_y_data = np.log(y)
         curve_fit = np.polyfit(X, log_y_data, 1)
         print("Found parameters! [a, b]: {}".format(str(curve_fit)))
-       
-        #popt, pcov = curve_fit(self.func_exp, X, y, p0 = (-1, 0.01, 1), maxfev=5000) # set number of guesses higher maxfev=5000
-        #print("Found parameters! [a, b, c]: {}".format(str(popt)))
-        
         print(type(curve_fit)) # useful function for seeing what type a variable is, (in this case, numpy array)
         self.curve_fit = curve_fit # saving found parameters
 
-    def predict(self, X): # Same call pattern as in the plot above, notice the *, which unpacks our popt variable
+    def predict(self, X): 
+        '''
+        A function that calls to predict the model
+        Keyword arguments:
+         X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        '''
         return self.func_exp(X) # not flattened here, so output will be like input in dimension
    
-    def score(self, X, y): #IGNORE
+    def score(self, X, y): 
+        '''
+        A function that determines the accuracy of the model fitted (or R^2)
+
+        Keyword arguments:
+        X -- 2D array of shape (M, N), where M is the number of data points, and N the number of features
+        y -- 1D array of shape (M,), where M is the number of data points
+        '''
         y_true = y
         y_pred = self.predict(X)
         return r2_score(y_true, y_pred)
