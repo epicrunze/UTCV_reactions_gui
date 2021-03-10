@@ -119,7 +119,7 @@ class Expofit():
         return np.exp(self.curve_fit[0]) * np.exp(self.curve_fit[1]*X)
     
     def fit(self, X, y):
-         '''
+        '''
         A function that takes the independent and dependent variables of the data, logs the values and uses numpy 
         polyfit to find paramaters for the linearized graph. These parameters are displayed, as well as saved for further use.
 
@@ -129,7 +129,7 @@ class Expofit():
         '''
         X = np.array(X).flatten() # flattens input array if not already flattened, since curve fit requires 1D arrays
         y = np.array(y).flatten() # same as above
-        log_x_data = np.log(X)
+        #log_x_data = np.log(X)
         log_y_data = np.log(y)
         curve_fit = np.polyfit(X, log_y_data, 1)
         print("Found parameters! [a, b]: {}".format(str(curve_fit)))
