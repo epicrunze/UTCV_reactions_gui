@@ -1,5 +1,5 @@
 # UTCV_reactions_gui
-A GUI for UTCV Reactions to lessen the time taken at competition.  
+A GUI for UTCV Reactions to lessen the time taken at competition.  :D
 
 Written by: Ryan Zhang, Mackenzie Gole, Olevia Pal
 
